@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/calc-trips-vanila/static/css/main.e6c13ad2.css",
-    "main.js": "/calc-trips-vanila/static/js/main.4d7c4fac.js",
+    "main.js": "/calc-trips-vanila/static/js/main.b4d9d8ff.js",
     "static/js/787.82fb0a27.chunk.js": "/calc-trips-vanila/static/js/787.82fb0a27.chunk.js",
     "index.html": "/calc-trips-vanila/index.html",
     "main.e6c13ad2.css.map": "/calc-trips-vanila/static/css/main.e6c13ad2.css.map",
-    "main.4d7c4fac.js.map": "/calc-trips-vanila/static/js/main.4d7c4fac.js.map",
+    "main.b4d9d8ff.js.map": "/calc-trips-vanila/static/js/main.b4d9d8ff.js.map",
     "787.82fb0a27.chunk.js.map": "/calc-trips-vanila/static/js/787.82fb0a27.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.4d7c4fac.js"
+    "static/js/main.b4d9d8ff.js"
   ]
 }
