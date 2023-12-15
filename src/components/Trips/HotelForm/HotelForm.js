@@ -1,16 +1,4 @@
-// import { useState } from "react";
-
 export const HotelForm = ({ stateForm, setStateForm }) => {
-  // const [accommodation, setAccommodation] = useState(0);
-  // const [parking, setParking] = useState(0);
-  // const [nighttime, setNighttime] = useState(0);
-  // const [workers, setWorkers] = useState(0);
-  // const [documents, setDocuments] = useState(0);
-  // const [interest, setInterest] = useState(0);
-  // const [total, setTotal] = useState(0);
-  // const [totalWorkers, setTotalWorkers] = useState(0);
-  // const [stateForm, setStateForm] = useState([]);
-
   const addForm = {
     accommodation: 0,
     parking: 0,
@@ -22,14 +10,13 @@ export const HotelForm = ({ stateForm, setStateForm }) => {
 
   const handleChange = (index, field, value) => {
     const updatedForms = [...stateForm];
-    updatedForms[index][field] = Number(value);
+    updatedForms[index][field] = value.trim() !== "" ? parseFloat(value) : "";
     setStateForm(updatedForms);
   };
 
   return (
     <>
       {stateForm.map((form, index) => (
-        
         <div key={index}>
           <h3>Готель {index + 1}</h3>
           <form>
@@ -96,6 +83,55 @@ export const HotelForm = ({ stateForm, setStateForm }) => {
               />
             </label>
           </form>
+          {/* <p>
+            Відсотки:{" "}
+            {((form.documents * form.nighttime) - (form.accommodation * form.nighttime) / form.workers) / 100) * form.interest}
+          </p> */}
+          <p>
+            Відсотки:{" "}
+            {(() => {
+              const baseValue =
+                form.documents * form.nighttime -
+                (form.accommodation * form.nighttime) / form.workers;
+              const percentageValue = (baseValue / 100) * form.interest;
+              return percentageValue;
+            })()}
+          </p>
+          <p>
+            Проживання:{" "}
+            {(() => {
+              const residence =
+                (form.accommodation * form.nighttime) / form.workers;
+              return residence;
+            })()}
+          </p>
+          <p>
+            Загальна ціна з одного з відсотками:{" "}
+            {(() => {
+              const baseValue =
+                form.documents * form.nighttime -
+                (form.accommodation * form.nighttime) / form.workers;
+              const percentageValue = (baseValue / 100) * form.interest;
+              const residence =
+                (form.accommodation * form.nighttime) / form.workers;
+              const result = percentageValue + residence;
+              return result;
+            })()}
+          </p>
+          <p>Загальна ціна з всіх з відсотками: {(() => {
+                          const baseValue =
+                            form.documents * form.nighttime -
+                            (form.accommodation * form.nighttime) /
+                              form.workers;
+                          const percentageValue =
+                            (baseValue / 100) * form.interest;
+                          const residence =
+                            (form.accommodation * form.nighttime) /
+                            form.workers;
+                          const result = (percentageValue + residence) * form.workers;
+                          return result;
+          })()}</p>
+          <p>Парковка: {(form.nighttime * form.parking) / form.workers}</p>
         </div>
       ))}
       <button onClick={() => setStateForm([...stateForm, addForm])}>

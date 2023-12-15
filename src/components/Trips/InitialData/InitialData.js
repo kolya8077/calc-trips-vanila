@@ -1,4 +1,3 @@
-
 export const InitialData = ({
   perDiem,
   setPerDiem,
@@ -31,7 +30,9 @@ export const InitialData = ({
             name="perDiem"
             value={perDiem}
             onChange={(e) => {
-              setPerDiem(Number(e.target.value));
+              const value =
+                e.target.value.trim() !== "" ? Number(e.target.value) : "";
+              setPerDiem(value);
             }}
           />
         </label>
@@ -42,7 +43,9 @@ export const InitialData = ({
             name="day"
             value={day}
             onChange={(e) => {
-              setDay(Number(e.target.value));
+              const value =
+                e.target.value.trim() !== "" ? Number(e.target.value) : "";
+              setDay(value);
             }}
           />
         </label>
@@ -53,7 +56,9 @@ export const InitialData = ({
             name="nigth"
             value={nigth}
             onChange={(e) => {
-              setNigth(Number(e.target.value));
+              const value =
+                e.target.value.trim() !== "" ? Number(e.target.value) : "";
+              setNigth(value);
             }}
           />
         </label>

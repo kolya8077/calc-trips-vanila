@@ -1,7 +1,7 @@
-import { useEffect, useState, useRef } from 'react';
-import { HotelForm } from './HotelForm/HotelForm';
-import { InitialData } from './InitialData/InitialData';
-import DownloadButton from './DownloadButton/DownloadButton';
+import { useEffect, useState } from "react";
+import { HotelForm } from "./HotelForm/HotelForm";
+import { InitialData } from "./InitialData/InitialData";
+import DownloadButton from "./DownloadButton/DownloadButton";
 
 export const Trips = () => {
   const [perDiem, setPerDiem] = useState(0);
@@ -9,11 +9,10 @@ export const Trips = () => {
   const [nigth, setNigth] = useState(0);
 
   const [stateForm, setStateForm] = useState([]);
-  // const [totalHotel, setTotalHotel] = useState([]);
-  const totalHotelRef = useRef([]);
+  const [totalHotel, setTotalHotel] = useState([]);
   const [totalMoney, setTotalMoney] = useState(0);
 
-  const [fileDescription, setFileDescription] = useState('');
+  const [fileDescription, setFileDescription] = useState("");
 
   const piecework = 350;
 
@@ -22,7 +21,7 @@ export const Trips = () => {
 
   useEffect(() => {
     const totalSumHotel = () => {
-      stateForm.map((form, index) => {
+      const updatedTotalHotel = stateForm.map((form, index) => {
         const {
           accommodation,
           parking,
@@ -53,40 +52,22 @@ export const Trips = () => {
           totalWorkers += parking * nighttime;
         }
 
-        const existingIndex = totalHotelRef.current.findIndex(
-          item => item.index === index
-        );
-
-        if (existingIndex !== -1) {
-          totalHotelRef.current[existingIndex] = {
-            accommodation,
-            parking,
-            nighttime,
-            workers,
-            documents,
-            interest,
-            total,
-            totalWorkers,
-            index,
-          };
-        } else {
-          totalHotelRef.current.push({
-            accommodation,
-            parking,
-            nighttime,
-            workers,
-            documents,
-            interest,
-            total,
-            totalWorkers,
-            index,
-          });
-        }
-        return totalWorkers;
+        return {
+          accommodation,
+          parking,
+          nighttime,
+          workers,
+          documents,
+          interest,
+          total,
+          totalWorkers,
+          index,
+        };
       });
 
-      totalHotelRef.current = [...totalHotelRef.current];
+      setTotalHotel(updatedTotalHotel);
     };
+
     totalSumHotel();
   }, [stateForm, perDiem, day, nigth]);
 
@@ -95,7 +76,7 @@ export const Trips = () => {
     let money = 0;
     let totalWorkers_cur = 0;
 
-    totalHotelRef.current.forEach(form => {
+    totalHotel.forEach((form) => {
       const { total, documents, nighttime, totalWorkers } = form;
       total_cur += total;
       money += documents * nighttime;
@@ -107,11 +88,11 @@ export const Trips = () => {
       money: money,
       totalWorkers_cur: totalWorkers_cur,
     });
-  }, [totalHotelRef]);
+  }, [totalHotel]);
 
   useEffect(() => {
     // Оновлення fileDescription залежно від потрібних даних
-    const updatedDescription = 'Короткий опис для файлу.txt';
+    const updatedDescription = "Короткий опис для файлу.txt";
     setFileDescription(updatedDescription);
   }, []);
 
@@ -128,11 +109,11 @@ export const Trips = () => {
         setNigth={setNigth}
       />
       <HotelForm stateForm={stateForm} setStateForm={setStateForm} />
-      <p>Замовили гроши на готель: {sumPerDiem}</p>
+      <p>Замовили гроші на готель: {sumPerDiem}</p>
       <p>Відрядні: {sumPiecework}</p>
       <p>Загальна сума відрядних: {sumPerDiem + sumPiecework}</p>
       <p>Загальні витрати: {total_cur}</p>
-      <p>Загальна сумма відрядних: {money + sumPiecework}</p>
+      <p>Загальна сума відрядних: {money + sumPiecework}</p>
       <p>Доплата: {money - sumPerDiem}</p>
       <p>Дохід: {money + sumPiecework - total_cur}</p>
 
