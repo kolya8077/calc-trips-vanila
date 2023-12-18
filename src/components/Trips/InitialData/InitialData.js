@@ -6,18 +6,6 @@ export const InitialData = ({
   nigth,
   setNigth,
 }) => {
-  // const [perDiem, setPerDiem] = useState(0);
-  // const [day, setDay] = useState(0);
-  // const [nigth, setNigth] = useState(0);
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   onSubmit({
-  //     perDiem: perDiem,
-  //     day: day,
-  //     nigth: nigth,
-  //   });
-  // };
 
   return (
     <>
