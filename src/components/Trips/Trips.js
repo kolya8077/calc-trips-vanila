@@ -90,13 +90,59 @@ export const Trips = () => {
     });
   }, [totalHotel]);
 
+  const { total_cur, money } = totalMoney;
+  console.log(stateForm)
   useEffect(() => {
     // Оновлення fileDescription залежно від потрібних даних
-    const updatedDescription = "Короткий опис для файлу.txt";
-    setFileDescription(updatedDescription);
-  }, []);
+    // const updatedDescription = "Короткий опис для файлу.txt";
+    const updatedDescription = `
+Замовлення коштів на 1 ніч: ${perDiem}
+Кількість днів: ${day}
+Кількість ночей: ${nigth}
+${stateForm.map(
+  (form, index) => `
 
-  const { total_cur, money } = totalMoney;
+Готель ${index + 1}
+ніч: ${form.accommodation}
+парковка: ${form.parking}
+ночей: ${form.nighttime}
+працівники: ${form.workers}
+папери: ${form.documents}
+відсотки: ${form.interest}
+загалом з одного: ${(() => {
+    const baseValue =
+      form.documents * form.nighttime -
+      (form.accommodation * form.nighttime) / form.workers;
+    const percentageValue = (baseValue / 100) * form.interest;
+    const residence = (form.accommodation * form.nighttime) / form.workers;
+    const result = percentageValue + residence;
+    return result;
+  })()}
+загалом з усіх: ${(() => {
+    const baseValue =
+      form.documents * form.nighttime -
+      (form.accommodation * form.nighttime) / form.workers;
+    const percentageValue = (baseValue / 100) * form.interest;
+    const residence = (form.accommodation * form.nighttime) / form.workers;
+    const result = (percentageValue + residence) * form.workers;
+    return result;
+  })()}
+`
+)}
+Підсумок!
+
+Замовили гроші на готель: ${sumPerDiem}
+Відрядні: ${sumPiecework}
+Загальна сума відрядних: ${sumPerDiem + sumPiecework}
+Загальні витрати: ${total_cur}
+Загальна сума відрядних: ${money + sumPiecework}
+
+Доплата: ${money - sumPerDiem}
+Дохід: ${money + sumPiecework - total_cur}
+`;
+    setFileDescription(updatedDescription);
+  }, [day, money, nigth, perDiem, stateForm, sumPerDiem, sumPiecework, total_cur]);
+
 
   return (
     <>
